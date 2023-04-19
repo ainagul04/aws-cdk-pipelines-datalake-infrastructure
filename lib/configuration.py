@@ -56,7 +56,7 @@ def get_local_configuration(environment: str) -> dict:
         DEPLOYMENT: {
             ACCOUNT_ID: '364380386792',
             REGION: 'us-east-1',
-            GITHUB_REPOSITORY_OWNER_NAME: 'https://git-codecommit.us-east-1.amazonaws.com/v1/repos',
+            GITHUB_REPOSITORY_OWNER_NAME: 'ainagul04',
             # If you use GitHub / GitHub Enterprise, this will be the organization name
             GITHUB_REPOSITORY_NAME: 'aws-cdk-pipelines-datalake-infrastructure',
             # Use your forked repo here!
