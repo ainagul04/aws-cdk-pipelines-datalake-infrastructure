@@ -54,35 +54,35 @@ def get_local_configuration(environment: str) -> dict:
     """
     local_mapping = {
         DEPLOYMENT: {
-            ACCOUNT_ID: '',
-            REGION: 'us-east-2',
-            GITHUB_REPOSITORY_OWNER_NAME: '',
+            ACCOUNT_ID: '364380386792',
+            REGION: 'us-east-1',
+            GITHUB_REPOSITORY_OWNER_NAME: 'aws-samples',
             # If you use GitHub / GitHub Enterprise, this will be the organization name
-            GITHUB_REPOSITORY_NAME: '',
+            GITHUB_REPOSITORY_NAME: 'aws-cdk-pipelines-datalake-infrastructure',
             # Use your forked repo here!
             # This is used in the Logical Id of CloudFormation resources
             # We recommend capital case for consistency. e.g. DataLakeCdkBlog
-            LOGICAL_ID_PREFIX: '',
+            LOGICAL_ID_PREFIX: 'DataLakeCdkBlog',
             # This is used in resources that must be globally unique!
             # It may only contain alphanumeric characters, hyphens, and cannot contain trailing hyphens
             # E.g. unique-identifier-data-lake
-            RESOURCE_NAME_PREFIX: '',
+            RESOURCE_NAME_PREFIX: 'cdkblog-e2e',
         },
         DEV: {
-            ACCOUNT_ID: '',
-            REGION: 'us-east-2',
+            ACCOUNT_ID: '927515790418',
+            REGION: 'us-east-1',
             VPC_CIDR: '10.20.0.0/24'
         },
-        TEST: {
-            ACCOUNT_ID: '',
-            REGION: 'us-east-2',
-            VPC_CIDR: '10.10.0.0/24'
-        },
-        PROD: {
-            ACCOUNT_ID: '',
-            REGION: 'us-east-2',
-            VPC_CIDR: '10.0.0.0/24'
-        }
+        ###TEST: {
+         #   ACCOUNT_ID: '',
+        #    REGION: 'us-east-2',
+        #    VPC_CIDR: '10.10.0.0/24'
+        #},
+        #PROD: {
+       #     ACCOUNT_ID: '',
+        #    REGION: 'us-east-2',
+        #    VPC_CIDR: '10.0.0.0/24'
+        #}###
     }
 
     resource_prefix = local_mapping[DEPLOYMENT][RESOURCE_NAME_PREFIX]
@@ -144,8 +144,8 @@ def get_all_configurations() -> dict:
             **get_local_configuration(DEPLOYMENT),
         },
         DEV: get_environment_configuration(DEV),
-        TEST: get_environment_configuration(TEST),
-        PROD: get_environment_configuration(PROD),
+        #TEST: get_environment_configuration(TEST),
+        #PROD: get_environment_configuration(PROD),
     }
 
 

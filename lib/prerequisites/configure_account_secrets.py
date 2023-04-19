@@ -8,7 +8,7 @@ from lib.configuration import (
     DEPLOYMENT, GITHUB_TOKEN, get_all_configurations
 )
 
-MY_GITHUB_TOKEN = ''
+MY_GITHUB_TOKEN = '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'
 
 
 if __name__ == '__main__':
