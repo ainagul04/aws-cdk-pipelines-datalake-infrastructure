@@ -7,6 +7,7 @@ import aws_cdk.pipelines as Pipelines
 import aws_cdk.aws_iam as iam
 import aws_cdk.aws_codepipeline_actions as CodePipelineActions
 import aws_cdk.aws_codebuild as CodeBuild
+import aws_cdk.aws_codecommit as CodeCommit
 
 from .configuration import (
     ACCOUNT_ID, DEPLOYMENT, GITHUB_REPOSITORY_NAME, GITHUB_REPOSITORY_OWNER_NAME, GITHUB_TOKEN,
@@ -130,7 +131,8 @@ class PipelineStack(cdk.Stack):
                     authentication=cdk.SecretValue.secrets_manager(
                     self.mappings[DEPLOYMENT][GITHUB_TOKEN]
                     ),
-                    trigger=CodePipelineActions.GitHubTrigger.POLL,
+                    #trigger=CodePipelineActions.GitHubTrigger.POLL,
+                    trigger=CodePipelineActions.CodeCommitSourceAction
                 ),
                 commands=["npm install -g aws-cdk",
                             "python -m pip install -r requirements.txt", 
