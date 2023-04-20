@@ -125,7 +125,8 @@ class PipelineStack(cdk.Stack):
             self_mutation=True,
             synth=Pipelines.ShellStep(
                 "Synth",
-                input=Pipelines.CodePipelineSource.git_hub(
+                # input=Pipelines.CodePipelineSource.git_hub(
+                    input=Pipelines.CodePipelineSource.codeCommit(
                     repo_string=f"{self.mappings[DEPLOYMENT][GITHUB_REPOSITORY_OWNER_NAME]}/{self.mappings[DEPLOYMENT][GITHUB_REPOSITORY_NAME]}",
                     branch=target_branch,
                     authentication=cdk.SecretValue.secrets_manager(
