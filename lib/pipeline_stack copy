@@ -115,7 +115,9 @@ class PipelineStack(cdk.Stack):
                     )
             ]
         )
-
+        repo = codecommit.Repository(self, "Repo",
+            repository_name="MyRepo"
+            )
         pipeline = Pipelines.CodePipeline(
             self,
             f'{target_environment}{logical_id_prefix}InfrastructurePipeline',
@@ -124,20 +126,26 @@ class PipelineStack(cdk.Stack):
             self_mutation=True,
             synth=Pipelines.ShellStep(
                 "Synth",
-                input=Pipelines.CodePipelineSource.git_hub(
-                    repo_string=f"{self.mappings[DEPLOYMENT][GITHUB_REPOSITORY_OWNER_NAME]}/{self.mappings[DEPLOYMENT][GITHUB_REPOSITORY_NAME]}",
+                # input=Pipelines.CodePipelineSource.git_hub(
+                    input=Pipelines.CodePipelineSource.code_commit(
+                    #repo_string=f"{self.mappings[DEPLOYMENT][GITHUB_REPOSITORY_OWNER_NAME]}/{self.mappings[DEPLOYMENT][GITHUB_REPOSITORY_NAME]}",
                     branch=target_branch,
-                    authentication=cdk.SecretValue.secrets_manager(
-                    self.mappings[DEPLOYMENT][GITHUB_TOKEN]
+                    repository="aws-cdk-pipelines-datalake-infrastructure"
+                    #authentication=cdk.SecretValue.secrets_manager(
+                    #self.mappings[DEPLOYMENT][GITHUB_TOKEN]
                     ),
-                    trigger=CodePipelineActions.GitHubTrigger.POLL,
+                    #trigger=CodePipelineActions.GitHubTrigger.POLL,
+                    trigger=CodePipelineActions.CodeCommitSourceAction(
+                        action_name="CodeCommit",
+                        repository="aws-cdk-pipelines-datalake-infrastructure",
+                    )
                 ),
                 commands=["npm install -g aws-cdk",
                             "python -m pip install -r requirements.txt", 
                             "cdk synth"],
             ),
-            cross_account_keys=True
-        )
+        cross_account_keys=True
+        
 
         pipeline.add_stage(
             PipelineDeployStage(
